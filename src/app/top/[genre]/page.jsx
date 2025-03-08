@@ -3,7 +3,7 @@ import Results from "@/Components/Results";
 const API_KEY = process.env.API_KEY;
 
 const SubModule = async ({ searchParam }) => {
-  const genre = searchParam?.genre || "trending";
+  const genre = await searchParam?.genre;
 
   const url = `https://api.themoviedb.org/3${
     genre === "rated" ? `/movie/top_rated` : `/trending/all/week`
