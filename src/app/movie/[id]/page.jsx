@@ -1,11 +1,27 @@
+import AddToFav from "@/Components/AddToFav";
 import Image from "next/image";
 import React from "react";
 
 const MoviePage = async ({ params }) => {
-  const movieId = params.id;
+  const movieId = await params?.id;
   const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}`;
   const res = await fetch(url);
   const data = await res.json();
+
+  if (!res.ok) {
+    return (
+      <div className="text-center mt-10">
+        <h1 className="text-xl my-5">
+          Movie details are not available at the moment!
+        </h1>
+        <p>
+          <Link href="/" className="hover:text-amber-600">
+            Go Home
+          </Link>
+        </p>
+      </div>
+    );
+  }
   console.log("movie page", data);
   const {
     name,
@@ -27,7 +43,7 @@ const MoviePage = async ({ params }) => {
           alt={name || "Movie image"}
           width={500}
           height={300}
-          style={{maxWidth:'100%', maxHeight:'100%'}}
+          style={{ maxWidth: "100%", maxHeight: "100%" }}
           className="sm:rounded-t-lg hover:opacity-75 transition-opacity duration-300 m-auto"
         />
         <div className="p-2">
@@ -38,9 +54,16 @@ const MoviePage = async ({ params }) => {
             {release_date || first_air_date}
           </p>
           <p>
-          <span className="font-semibold mr-1">Rating: </span>{" "}
-          {vote_count}
+            <span className="font-semibold mr-1">Rating: </span> {vote_count}
           </p>
+          <AddToFav 
+          movieId={movieId}
+          title={title}
+          image={backdrop_path || poster_path}
+          overview={overview}
+          releaseDate={release_date || first_air_date}
+          voteCount={vote_count}
+          />
         </div>
       </div>
     </div>
