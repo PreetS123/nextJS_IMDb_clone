@@ -2,14 +2,13 @@ import Results from "@/Components/Results";
 
 const API_KEY = process.env.API_KEY;
 
-const Home = async ({ searchParam }) => {
-  // const genre = searchParam?.genre || "trending";
+const SubModule = async ({ searchParam }) => {
+  const genre = searchParam?.genre || "trending";
 
-  // const url = `https://api.themoviedb.org/3${
-  //   genre === "rated" ? `/movie/top_rated` : `/trending/all/week`
-  // }?api_key=${API_KEY || process.env.API_KEY}&language=en-US&page=1`;
+  const url = `https://api.themoviedb.org/3${
+    genre === "rated" ? `/movie/top_rated` : `/trending/all/week`
+  }?api_key=${API_KEY || process.env.API_KEY}&language=en-US&page=1`;
 
-  const url = `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY || process.env.API_KEY}&language=en-US&page=1`;
   const res = await fetch(url);
 
   if (!res.ok) {
@@ -30,4 +29,4 @@ const Home = async ({ searchParam }) => {
   );
 };
 
-export default Home;
+export default SubModule;
