@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema(
     profilePicture: {
       type: String,
       required: true,
-      unique: true,
+      unique: false,
     },
     favs: {
       type: [favSchema],
