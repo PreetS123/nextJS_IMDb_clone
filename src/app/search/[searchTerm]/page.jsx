@@ -2,7 +2,7 @@ import Results from "@/Components/Results";
 import React from "react";
 
 const SearchPage = async ({ params }) => {
-  const searchTerm =   params.searchTerm;
+  const searchTerm = params.searchTerm;
   if (!searchTerm) {
     throw new Error("Search term is missing");
   }
@@ -17,7 +17,7 @@ const SearchPage = async ({ params }) => {
 
   const data = await res.json();
   const results = data?.results || [];
-  console.log("lkklks",results)
+  // console.log("lkklks",results)
 
   return (
     <div>
@@ -25,7 +25,7 @@ const SearchPage = async ({ params }) => {
         <h1 className="text-center pt-6">No such results found</h1>
       )}
 
-      {results.length > 0 && <Results results={results} />}
+      {results && results.length > 0 && <Results results={results} />}
     </div>
   );
 };
